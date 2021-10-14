@@ -1,9 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
+import useAuth from "~data/hook/useAuth";
 import Layout from "~components/Layout/Layout";
 
 const HomePage: NextPage = () => {
+  const { user } = useAuth();
+
   return (
     <>
       <Head>
@@ -14,6 +17,7 @@ const HomePage: NextPage = () => {
 
       <Layout title="Home" subtitle="Building a admin template">
         <h3>Content</h3>
+        <pre>{JSON.stringify(user)}</pre>
       </Layout>
     </>
   );

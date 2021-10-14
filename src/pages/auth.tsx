@@ -1,12 +1,19 @@
 import React from "react";
 import type { NextPage } from "next";
 
+import useAuth from "~data/hook/useAuth";
 import AuthInput from "~components/Auth/AuthInput/AuthInput";
 import { GoogleIcon, WarningIcon } from "~components/icons/icons";
 
 type AuthMode = "signin" | "signup";
 
+// const BG_IMAGE_URL = 'https://source.unsplash.com/random';
+const BG_IMAGE_URL =
+  "https://images.unsplash.com/photo-1517976487492-5750f3195933?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80";
+
 const AuthPage: NextPage = () => {
+  const { user, googleLogin } = useAuth();
+
   const [mode, setMode] = React.useState<AuthMode>("signin");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -22,15 +29,11 @@ const AuthPage: NextPage = () => {
     showError("Ops!");
   };
 
-  // const imgUrl = 'https://source.unsplash.com/random';
-  const imgUrl =
-    "https://images.unsplash.com/photo-1517976487492-5750f3195933?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80";
-
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="h-full hidden md:block md:w-1/2 lg:w-2/3">
         <img
-          src={imgUrl}
+          src={BG_IMAGE_URL}
           alt="background"
           className="h-full w-full object-cover"
         />
@@ -86,6 +89,7 @@ const AuthPage: NextPage = () => {
             flex items-center justify-center
             border border-red-500 hover:border-red-700 transition-colors
           `}
+          onClick={googleLogin}
         >
           {GoogleIcon}
           <span className="ml-2 inline-block">Login with Google</span>
