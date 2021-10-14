@@ -12,7 +12,7 @@ const BG_IMAGE_URL =
   "https://images.unsplash.com/photo-1517976487492-5750f3195933?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80";
 
 const AuthPage: NextPage = () => {
-  const { user, googleLogin } = useAuth();
+  const { register, login, googleLogin } = useAuth();
 
   const [mode, setMode] = React.useState<AuthMode>("signin");
   const [email, setEmail] = React.useState("");
@@ -24,9 +24,17 @@ const AuthPage: NextPage = () => {
     setTimeout(() => setError(""), timeInSeconds * 1000);
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    showError("Ops!");
+    try {
+      if (mode === "signin") {
+        await login!(email, password);
+      } else {
+        await register!(email, password);
+      }
+    } catch (e: any) {
+      showError(`Ops! ${e.message}`);
+    }
   };
 
   return (
@@ -45,7 +53,7 @@ const AuthPage: NextPage = () => {
             : "Sign up on the platform"}
         </h1>
 
-        {error && (
+        {error !== "" && (
           <div className="bg-red-400 text-white py-3 px-5 my-2 rounded-lg flex items-center">
             {WarningIcon()}
             <span className="ml-3 text-sm">{error}</span>

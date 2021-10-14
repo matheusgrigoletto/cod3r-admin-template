@@ -1,3 +1,4 @@
+import useAuth from "~data/hook/useAuth";
 import MenuItem from "~components/MenuItem/MenuItem";
 import {
   HomeIcon,
@@ -8,6 +9,7 @@ import {
 import Logo from "~components/Logo/Logo";
 
 const Menu = () => {
+  const { logout } = useAuth();
   return (
     <aside className="flex flex-col dark:bg-gray-900 bg-gray-200">
       <div
@@ -29,7 +31,7 @@ const Menu = () => {
       </ul>
       <ul>
         <MenuItem
-          onClick={() => alert("Sign out")}
+          onClick={logout}
           label="Sign out"
           icon={SignOutIcon}
           className="text-red-600 hover:bg-red-800 hover:text-white dark:text-red-400 dark:hover:text-white"

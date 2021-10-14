@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 
 type Theme = "dark" | "";
 
@@ -12,10 +12,19 @@ const AppContext = React.createContext<AppContextProps>({
   toggleTheme: () => {},
 });
 
-export function AppProvider(props: PropsWithChildren<{}>) {
+export function AppProvider(props: React.PropsWithChildren<{}>) {
   const [theme, setTheme] = React.useState<Theme>("");
 
-  const toggleTheme = () => setTheme(theme === "" ? "dark" : "");
+  const toggleTheme = () => {
+    const chosenTheme = theme === "" ? "dark" : "";
+    window.localStorage.setItem("theme", chosenTheme);
+    setTheme(chosenTheme);
+  };
+
+  React.useEffect(() => {
+    const theme = window.localStorage.getItem("theme");
+    setTheme((theme ?? "") as Theme);
+  }, []);
 
   return (
     <AppContext.Provider

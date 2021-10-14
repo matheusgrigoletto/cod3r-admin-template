@@ -36,6 +36,9 @@
       "~functions/*": [
         "src/functions/*"
       ],
+      "~public/*": [
+        "public/*"
+      ],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

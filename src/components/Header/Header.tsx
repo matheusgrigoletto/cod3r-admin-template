@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import React from "react";
 
 import useAppData from "~data/hook/useAppData";
 import Avatar from "~components/Avatar/Avatar";
@@ -10,19 +10,17 @@ interface HeaderProps {
   subtitle: string;
 }
 
-const Header = (props: PropsWithChildren<HeaderProps>) => {
+const Header = (props: React.PropsWithChildren<HeaderProps>) => {
   const { theme, toggleTheme } = useAppData();
 
   return (
-    <>
-      <div className="flex">
-        <Title title={props.title} subtitle={props.subtitle} />
-        <div className="flex flex-grow justify-end items-center">
-          <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} />
-          <Avatar className="ml-3" />
-        </div>
+    <div className="flex">
+      <Title title={props.title} subtitle={props.subtitle} />
+      <div className="flex flex-grow justify-end items-center">
+        <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} />
+        <Avatar className="ml-3" />
       </div>
-    </>
+    </div>
   );
 };
 
